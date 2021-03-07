@@ -483,12 +483,12 @@ class Flask(object):
         try:
             endpoint, values = self.match_request()
             return self.view_functions[endpoint](**values)  # 根据端点在view_functions字典内获取对应的视图函数并调用，传入视图参数
-        except HTTPException, e:
+        except HTTPException as e:
             handler = self.error_handlers.get(e.code)
             if handler is None:
                 return e
             return handler(e)
-        except Exception, e:
+        except Exception as e:
             handler = self.error_handlers.get(500)
             if self.debug or handler is None:
                 raise
